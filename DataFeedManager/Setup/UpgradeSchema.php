@@ -37,8 +37,8 @@ class UpgradeSchema implements UpgradeSchemaInterface
     public function upgrade(
         SchemaSetupInterface $setup,
         ModuleContextInterface $context
-    )
-    {
+    ) {
+    
         $this->license->create()->update(__CLASS__, $context);
 
 

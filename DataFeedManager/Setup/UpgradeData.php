@@ -96,7 +96,6 @@ class UpgradeData implements UpgradeDataInterface
             try {
                 $this->_state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
             } catch (\Exception $e) {
-
             }
             $re='/\$myPattern\s*=\s*null;/';
             foreach ($this->_feedsCollectionFactory as $feed) {
@@ -135,7 +134,6 @@ class UpgradeData implements UpgradeDataInterface
             try {
                 $this->_state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
             } catch (\Exception $e) {
-
             }
             $re='/.categories([^|}]+)index="?\'?([0-9]+)"?\'?/';
             $feeds=$this->_feedsCollectionFactory->create();
@@ -155,7 +153,6 @@ class UpgradeData implements UpgradeDataInterface
             try {
                 $this->_state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
             } catch (\Exception $e) {
-
             }
             $toReplace=["dfm_strtoupper", "dfm_strtolower", "dfm_implode", "dfm_html_entity_decode", "dfm_strip_tags", "dfm_htmlentities", "dfm_substr"];
             $replacement=["wyomind_strtoupper", "wyomind_strtolower", "wyomind_implode", "wyomind_html_entity_decode", "wyomind_strip_tags", "wyomind_htmlentities", "wyomind_substr"];
@@ -256,7 +253,6 @@ xmlns:s=\"https://merchants.siroop.ch/\">
             try {
                 $this->_state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
             } catch (\Exception $e) {
-
             }
 
             $functions=$this->_functionsCollectionFactory->create();

@@ -39,7 +39,7 @@ class AttributesInventory extends \Magento\Framework\App\Helper\AbstractHelper
         if (isset($model->inventoryStocks[$stockId][$product->getId()])) {
             $stocks = $model->inventoryStocks[$stockId][$product->getId()];
         } else {
-            $stocks = array('is_salable' => 0, 'quantity' => 0);
+            $stocks = ['is_salable' => 0, 'quantity' => 0];
         }
         return $stocks;
     }
@@ -48,7 +48,7 @@ class AttributesInventory extends \Magento\Framework\App\Helper\AbstractHelper
         if (isset($model->inventorySources[$product->getId()][$sourceCode])) {
             $stocks = $model->inventorySources[$product->getId()][$sourceCode];
         } else {
-            $stocks = array('is_salable' => 0, 'quantity' => 0);
+            $stocks = ['is_salable' => 0, 'quantity' => 0];
         }
         return $stocks;
     }

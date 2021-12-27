@@ -39,8 +39,8 @@ class InstallData implements InstallDataInterface
         \Magento\Framework\Stdlib\DateTime\DateTime $coreDate,
         \Wyomind\DataFeedManager\Model\ResourceModel\Store\CollectionFactory $storeCollectionFactory,
         \Magento\Eav\Model\ResourceModel\Entity\Attribute\CollectionFactory $entityAttributeCollectionFactory
-    )
-    {
+    ) {
+    
         $this->_coreDate = $coreDate;
         $this->_storeId = $storeCollectionFactory->create()->getFirstStoreId();
         $this->_entityAttributeCollectionFactory = $entityAttributeCollectionFactory;
@@ -54,8 +54,8 @@ class InstallData implements InstallDataInterface
     public function install(
         ModuleDataSetupInterface $setup,
         ModuleContextInterface $context
-    )
-    {
+    ) {
+    
         unset($context);
 
         $installer = $setup;
@@ -916,8 +916,8 @@ class InstallData implements InstallDataInterface
         $attributesList = $this->_entityAttributeCollectionFactory->create()->setEntityTypeFilter(4);
         foreach ($attributesList as $attribute) {
             $code = $attribute->getAttributeCode();
-            if ($attribute->getFrontendLabel() != "" && !in_array($code,["sku","description","name","color"]) && stripos($code, "price") === false && stripos($code, "use_config") === false) {
-                if (preg_match("/.*[0-9].*/",$code)) {
+            if ($attribute->getFrontendLabel() != "" && !in_array($code, ["sku","description","name","color"]) && stripos($code, "price") === false && stripos($code, "use_config") === false) {
+                if (preg_match("/.*[0-9].*/", $code)) {
                     $plytixColumns[$attribute->getFrontendLabel()] = "<?php /* {{product." . $code . "}} */ return \$product->getData('$code'); ?>";
                 } else {
                     $plytixColumns[$attribute->getFrontendLabel()] = "{{product." . $code . "}}";
@@ -933,7 +933,7 @@ class InstallData implements InstallDataInterface
             "status" => 0,
             "updated_at" => $this->_coreDate->date('Y-m-d H:i:s'),
             "store_id" => $this->_storeId,
-            "product_pattern" => '{"product":'.'["'.implode('","',array_values($plytixColumns)).'"]'.'}',
+            "product_pattern" => '{"product":'.'["'.implode('","', array_values($plytixColumns)).'"]'.'}',
             "category_filter" => 1,
             "categories" => "*",
             "type_ids" => "simple,configurable,bundle,grouped,virtual,downloadable",
@@ -943,7 +943,7 @@ class InstallData implements InstallDataInterface
             "attributes" => "[]",
             "cron_expr" => '{"days":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"hours":["04:00"]}',
             "include_header" => 1,
-            "header" => '{"header":'.'["'.implode('","',array_keys($plytixColumns)).'"]'.'}',
+            "header" => '{"header":'.'["'.implode('","', array_keys($plytixColumns)).'"]'.'}',
             "footer" => "",
             "encoding" => "UTF-8",
             "field_separator" => ';',

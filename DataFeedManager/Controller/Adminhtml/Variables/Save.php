@@ -72,8 +72,8 @@ class Save extends \Wyomind\DataFeedManager\Controller\Adminhtml\Variables\Abstr
             }
 
             if (!empty($data['custom_layout_update_xml']) && !$validatorCustomLayout->isValid(
-                    $data['custom_layout_update_xml']
-                )
+                $data['custom_layout_update_xml']
+            )
             ) {
                 $errorNo = false;
             }

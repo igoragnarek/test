@@ -5,6 +5,7 @@
  */
 
 namespace Wyomind\DataFeedManager\Model\ResourceModel\Product\Option;
+
 /**
  * @copyright Wyomind 2016
  */

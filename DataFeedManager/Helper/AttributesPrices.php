@@ -184,6 +184,9 @@ class AttributesPrices extends \Magento\Framework\App\Helper\AbstractHelper impl
         $price = $tierPrices[$groupId][$index]['value'];
         if ($price > 0) {
             $value = $this->applyTaxThenCurrency($model, $item->getTaxClassId(), $price, $options, $reference);
+        } elseif ($tierPrices[$groupId][$index]['percent'] != null) {
+            $price = $this->finalPrice($model, $options, $product, $reference) * ((100 - $tierPrices[$groupId][$index]['percent']) / 100);
+            $value = $this->applyTaxThenCurrency($model, 0, $price, $options, $reference);
         } else {
             $value = 0;
         }

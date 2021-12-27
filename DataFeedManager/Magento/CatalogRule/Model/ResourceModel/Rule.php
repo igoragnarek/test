@@ -10,7 +10,6 @@ use Magento\Catalog\Model\Product;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 
-
 /**
  * Class Rule
  * @package Wyomind\DataFeedManager\Magento\CatalogRule\Model\ResourceModel
@@ -58,5 +57,4 @@ class Rule extends \Magento\CatalogRule\Model\ResourceModel\Rule
         };
         return $ruleId;
     }
-
 }

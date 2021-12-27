@@ -1,16 +1,16 @@
 {
     "name": "wyomind/datafeedmanager",
-    "version": "11.19.3",
-    "version_normalized": "11.19.3.0",
+    "version": "11.20.3",
+    "version_normalized": "11.20.3.0",
     "dist": {
         "type": "zip",
-        "url": "https://repo.wyomind.com/wyomind-datafeedmanager-11.19.3.zip",
-        "reference": null
+        "url": "https://www.wyomind.com/wyomind-datafeedmanager-11.20.3.zip",
+        "reference": ""
     },
     "require": {
         "magento/framework": ">=100.0.0",
         "php": "~5.5.0|~5.6.0|>=7.0.0",
-        "wyomind/framework": ">=7.0.1"
+        "wyomind/framework": ">=5.0.0"
     },
     "type": "magento2-module",
     "extra": [],

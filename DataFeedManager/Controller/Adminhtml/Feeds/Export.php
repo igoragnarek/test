@@ -19,8 +19,8 @@ class Export extends \Wyomind\DataFeedManager\Controller\Adminhtml\Feeds\Abstrac
     {
         $feed = $this->dfmModel;
         $feed->load($this->getRequest()->getParam('id'));
-        $fields = array();
-        $values = array();
+        $fields = [];
+        $values = [];
 
         foreach ($feed->getData() as $field => $value) {
             $fields[] = $field;

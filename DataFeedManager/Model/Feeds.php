@@ -346,11 +346,11 @@ class Feeds extends \Magento\Framework\Model\AbstractModel
     /**
      * @var bool
      */
-    protected $_loadStocks = array();
+    protected $_loadStocks = [];
     /**
      * @var bool
      */
-    protected $_loadSources = array();
+    protected $_loadSources = [];
     /**
      * @var \Magento\Framework\Filesystem\Directory\WriteInterface|null
      */
@@ -825,7 +825,7 @@ class Feeds extends \Magento\Framework\Model\AbstractModel
      */
     public function jsonToTable($pattern, $header = false)
     {
-        $pattern = preg_replace(array('/(\\r\\n|\\n|\\r|\\r\\n)/s', '/[\\x00-\\x1f]/'), '', $pattern);
+        $pattern = preg_replace(['/(\\r\\n|\\n|\\r|\\r\\n)/s', '/[\\x00-\\x1f]/'], '', $pattern);
         $styleTd = 'padding:2px; border:1px solid grey; text-align:center;padding:5px; min-width:10px;min-height:10px;';
         $data = json_decode($pattern);
         if (!is_array($data)) {
@@ -880,7 +880,7 @@ class Feeds extends \Magento\Framework\Model\AbstractModel
      */
     public function jsonToStr($pattern, $delimiter, $enclosure, $escaper)
     {
-        $pattern = preg_replace(array('/(\\r\\n|\\n|\\r|\\r\\n)/s', '/[\\x00-\\x1f]/'), '', $pattern);
+        $pattern = preg_replace(['/(\\r\\n|\\n|\\r|\\r\\n)/s', '/[\\x00-\\x1f]/'], '', $pattern);
         $data = json_decode($pattern);
         if (!is_array($data)) {
             $d[] = $data;

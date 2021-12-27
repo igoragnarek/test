@@ -54,7 +54,7 @@ class InventoryStock extends \Magento\Framework\Model\ResourceModel\Db\AbstractD
                 $select->from(["inventory_stock" => $inventoryStockTable])->reset('columns')->columns(["cpe.entity_id", new \Zend_Db_Expr("inventory_stock.quantity+IF(ISNULL(SUM(ir.quantity)),0,SUM(ir.quantity)) AS quantity"), new \Zend_Db_Expr("MAX(is_salable) as is_salable")])->joinLeft(["ir" => $this->inventoryReservationTable], "ir.sku = inventory_stock.sku", [])->joinLeft(["cpe" => $this->catalogProductEntityTable], "inventory_stock.sku = cpe.sku", [])->group(["cpe.entity_id"]);
                 $data = $this->getConnection()->fetchAll($select);
                 foreach ($data as $product) {
-                    $stocks[$stockId][$product["entity_id"]] = array("quantity" => $product["quantity"], "is_salable" => $product["is_salable"]);
+                    $stocks[$stockId][$product["entity_id"]] = ["quantity" => $product["quantity"], "is_salable" => $product["is_salable"]];
                 }
             }
         }
@@ -71,7 +71,7 @@ class InventoryStock extends \Magento\Framework\Model\ResourceModel\Db\AbstractD
         $select->from(["isi" => $inventorySourceItemTable])->reset('columns')->columns(["cpe.entity_id", "isi.quantity", "isi.status", "isi.source_code"])->joinInner(["cpe" => $this->catalogProductEntityTable], "isi.sku = cpe.sku", [])->group(["cpe.entity_id", "isi.source_code"])->where("isi.source_code IN ('" . implode("','", array_unique($sourceList)) . "')");
         $data = $this->getConnection()->fetchAll($select);
         foreach ($data as $product) {
-            $sources[$product["entity_id"]][$product["source_code"]] = array("quantity" => $product["quantity"], "is_salable" => $product["status"]);
+            $sources[$product["entity_id"]][$product["source_code"]] = ["quantity" => $product["quantity"], "is_salable" => $product["status"]];
         }
         return $sources;
     }

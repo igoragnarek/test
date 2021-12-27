@@ -30,7 +30,9 @@ class AttributesChildren extends \Magento\Framework\App\Helper\AbstractHelper im
 
 
         $item=$model->checkReference($reference, $product);
-        if ($item == null) return "";
+        if ($item == null) {
+            return "";
+        }
         $productTypeId=$item->getTypeId();
         $type="_" . $productTypeId . "Children";
         $children=[];

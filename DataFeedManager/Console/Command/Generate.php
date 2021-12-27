@@ -50,8 +50,8 @@ class Generate extends Command
     public function __construct(
         \Wyomind\DataFeedManager\Model\ResourceModel\Feeds\CollectionFactory $feedsCollectionFactory,
         \Magento\Framework\App\State $state
-    )
-    {
+    ) {
+    
 
         $this->_state = $state;
         $this->_feedsCollectionFactory = $feedsCollectionFactory;
@@ -83,15 +83,14 @@ class Generate extends Command
     protected function execute(
         InputInterface $input,
         OutputInterface $output
-    )
-    {
+    ) {
+    
 
 
         try {
             try {
                 $this->_state->setAreaCode('adminhtml');
             } catch (\Exception $e) {
-
             }
             $feedsIds = $input->getArgument(self::FEED_ID_ARG);
             $collection = $this->_feedsCollectionFactory->create()->getList($feedsIds);

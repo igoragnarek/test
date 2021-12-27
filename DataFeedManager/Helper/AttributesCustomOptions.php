@@ -81,7 +81,6 @@ class AttributesCustomOptions extends \Magento\Framework\App\Helper\AbstractHelp
                             $columns = $template["product"];
                             $columns[count($columns) - 1] .= "/breakline/";
                             $final = array_merge($final, $columns);
-
                         };
                         $productPattern = json_encode(["product" => $final]);
                     } else {
@@ -89,8 +88,6 @@ class AttributesCustomOptions extends \Magento\Framework\App\Helper\AbstractHelp
                     }
                 }
 //                $productPattern = implode("\n", $pattern);
-
-
             }
         }
 

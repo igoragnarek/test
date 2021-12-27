@@ -199,8 +199,8 @@ abstract class AbstractAction extends \Magento\Backend\App\Action
         \Magento\Framework\Filesystem\Directory\ReadFactory $directoryRead,
         \Wyomind\DataFeedManager\Model\ResourceModel\Variables\CollectionFactory $variablesCollectionFactory,
         \Wyomind\DataFeedManager\Helper\Attributes $attributesHelper
-    )
-    {
+    ) {
+    
         $this->_coreRegistry = $coreRegistry;
         $this->_attributeFactory = $attributeFactory;
         $this->_resultPageFactory = $resultPageFactory;

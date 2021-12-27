@@ -50,8 +50,8 @@ class Listing extends Command
         \Wyomind\DataFeedManager\Model\ResourceModel\Feeds\CollectionFactory $feedsCollectionFactory,
         \Wyomind\DataFeedManager\Helper\DataFactory $dataHelperFactory,
         \Magento\Framework\App\State $state
-    )
-    {
+    ) {
+    
 
         $this->_state = $state;
         $this->_feedsCollectionFactory = $feedsCollectionFactory;
@@ -78,15 +78,14 @@ class Listing extends Command
     protected function execute(
         InputInterface $input,
         OutputInterface $output
-    )
-    {
+    ) {
+    
 
 
         try {
             try {
                 $this->_state->setAreaCode('adminhtml');
             } catch (\Exception $e) {
-
             }
             $collection = $this->_feedsCollectionFactory->create();
             foreach ($collection as $feed) {

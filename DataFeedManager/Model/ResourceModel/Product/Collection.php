@@ -85,7 +85,7 @@ class Collection extends \Magento\Catalog\Model\ResourceModel\Product\Collection
             foreach (explode(',', $parent->getChildIds()) as $childId) {
                 $grouped[$childId] = $parent;
             }
-            $children[$parent->getId()] = array("id" => explode(',', $parent->getChildIds()), "sku" => explode(',', $parent->getChildSkus()));
+            $children[$parent->getId()] = ["id" => explode(',', $parent->getChildIds()), "sku" => explode(',', $parent->getChildSkus())];
         }
         return [$grouped, $children];
     }
@@ -126,7 +126,7 @@ class Collection extends \Magento\Catalog\Model\ResourceModel\Product\Collection
             foreach (explode(',', $p->getChildIds()) as $childId) {
                 $parent[$childId] = $p;
             }
-            $children[$p->getId()] = array("id" => explode(',', $p->getChildIds()), "sku" => explode(',', $p->getChildSkus()));
+            $children[$p->getId()] = ["id" => explode(',', $p->getChildIds()), "sku" => explode(',', $p->getChildSkus())];
         }
         return [$parent, $children];
     }

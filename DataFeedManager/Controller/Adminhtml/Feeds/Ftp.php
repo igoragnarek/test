@@ -31,8 +31,8 @@ class Ftp extends \Magento\Backend\App\Action
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Filesystem\Io\Ftp $ioFtp,
         \Magento\Framework\Filesystem\Io\Sftp $ioSftp
-    )
-    {
+    ) {
+    
         $this->_ioFtp = $ioFtp;
         $this->_ioSftp = $ioSftp;
         parent::__construct($context);
@@ -67,8 +67,11 @@ class Ftp extends \Magento\Backend\App\Action
             $ftp = $this->_ioFtp;
         }
 
-        try {
+        if ($port != '') {
+            $host .= ':' . $port;
+        }
 
+        try {
             $ftp->open(
                 [
                     'host' => $host,
@@ -87,7 +90,6 @@ class Ftp extends \Magento\Backend\App\Action
         } catch (\Exception $e) {
             $content = __("Ftp error : ") . $e->getMessage();
         }
-
         $this->getResponse()->representJson($this->_objectManager->create('Magento\Framework\Json\Helper\Data')->jsonEncode($content));
     }
 }

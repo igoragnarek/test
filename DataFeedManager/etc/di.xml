@@ -72,9 +72,9 @@
 
     <type name="Wyomind\DataFeedManager\Controller\Adminhtml\AbstractAction">
         <arguments>
-            <argument name="dfmModel" xsi:type="object">Wyomind\DataFeedManager\Model\Feeds\Proxy</argument>
             <argument name="attributesHelper" xsi:type="object">Wyomind\DataFeedManager\Helper\Attributes\Proxy</argument>
             <argument name="dfmHelper" xsi:type="object">Wyomind\DataFeedManager\Helper\Data\Proxy</argument>
+            <argument name="dfmModel" xsi:type="object">Wyomind\DataFeedManager\Model\Feeds\Proxy</argument>
         </arguments>
     </type>
 

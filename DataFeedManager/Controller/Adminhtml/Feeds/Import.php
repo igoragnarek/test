@@ -22,7 +22,6 @@ class Import extends \Wyomind\DataFeedManager\Controller\Adminhtml\Feeds\Abstrac
         if ($this->_uploader->getFileExtension() != 'dfm') {
             $this->messageManager->addError(__('Wrong file type (') . $this->_uploader->getFileExtension() . __(').<br>Choose a dfm file.'));
         } else {
-
             $rootDir = $this->_directoryList->getPath(\Magento\Framework\App\Filesystem\DirectoryList::ROOT);
             $this->_uploader->save($rootDir . '/var/tmp', 'import-datafeedmanager.csv');
             // Get content
@@ -36,7 +35,7 @@ class Import extends \Wyomind\DataFeedManager\Controller\Adminhtml\Feeds\Abstrac
                 $key = $this->framework->getStoreConfig('datafeedmanager/license/activation_code');
             }
 
-            $template = openssl_decrypt($data[0][0],'AES-128-ECB',$key);
+            $template = openssl_decrypt($data[0][0], 'AES-128-ECB', $key);
 
             if ($this->dfmModel->load(0)->getResource()->importDataFeed($template)) {
                 $this->messageManager->addSuccess(__('The data feed has been imported.'));

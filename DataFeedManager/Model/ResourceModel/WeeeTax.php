@@ -25,11 +25,16 @@ class WeeeTax extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     {
         $attributeSelect = $this->getConnection()->select();
         $attributeSelect->from(
-            ['eavTable' => $this->getTable('eav_attribute')], ['eavTable.attribute_code']
+            ['eavTable' => $this->getTable('eav_attribute')],
+            ['eavTable.attribute_code']
         )->joinInner(
-            ['weeeTax' => $this->getTable('weee_tax')], 'weeeTax.attribute_id = eavTable.attribute_id', ['weeeTax.entity_id', 'weeeTax.value as weee_value', 'weeeTax.country', 'weeeTax.state']
+            ['weeeTax' => $this->getTable('weee_tax')],
+            'weeeTax.attribute_id = eavTable.attribute_id',
+            ['weeeTax.entity_id', 'weeeTax.value as weee_value', 'weeeTax.country', 'weeeTax.state']
         )->joinLeft(
-            ['region' => $this->getTable('directory_country_region')], 'weeeTax.state = region.region_id', ['region.code as region_code']
+            ['region' => $this->getTable('directory_country_region')],
+            'weeeTax.state = region.region_id',
+            ['region.code as region_code']
         )->where("weeeTax.website_id in (0," . $websiteId . ")");
 
 
@@ -37,5 +42,4 @@ class WeeeTax extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 
         return $values;
     }
-
 }
