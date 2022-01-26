@@ -1,43 +1,143 @@
-* 1.14.2 (30/09/2021) 
+* 1.19.1 (18/01/2022) 
 
-[Common] [Fixed] Error "[Request ip has wrong value.]" occurs on the Module Registration step of the initial set-up Wizard [#2586]
-[Common] [Fixed] "Error: Class 'Laminas\Serializer\Serializer' not found" occurs on Magento 2.4.3 [#2632]
-[Common] [Fixed] "Error: Class 'Zend\Serializer\Serializer' not found" occurs on Magento 2.4.3 [#2592]
-[eBay] [Fixed] Magento Order was not created. Reason: Warning: A non-numeric value encountered [#2594]
-[eBay] [Fixed] eBay order was not refunded as per Magento credit memo creation [#1220]
-[Amazon] [Fixed] Different Grand Totals in Amazon and Magento orders for Grouped Products listed as Set [#1218]
-[Amazon] [Fixed] Internal Server Error(s) [Marketplace ID is not valid. It differs from the current.] occurs when trying to update the MWS token [#1215]
-[Amazon] [Improved] Self-upload of Amazon invoices without receiving and checking the results of the GetFeedSubmissionResult command [#2939]
+Common: [Fixed] Warning: "Failed to set memory limit" in some software environments [#3252]
+Common: [Improved] Optimization of listing management speed [#3057]
+eBay: [Fixed] Canceled orders are not imported to M2E Pro [#3134]
+
+* 1.19.0 (4/01/2022)
+
+Common: [Fixed] Undefined index: m2epro_extension in Ess/M2ePro/Model/Order/Shipment/Handler.php on line 63 when trying to resend Shipping Information [#2973]
+Common: [Improved] Compatibility with PHP v5.6 and later [#3239]
+eBay: [Added] Mark "Name", "Mode" and "Value" fields as required when adding Item Specifics [#2634]
+eBay: [Fixed] An empty page is displayed after submitting the "Sell on Another Marketplace" action in the Listing [#2631]
+eBay: [Fixed] Excessive number of warnings during the automatic revise of Price and Quantity [#3114]
+eBay: [Fixed] Product variations are mapped incorrectly [#3051]
+eBay: [Removed] "Additional cost" field is required in Shipping Policy [#1245]
+Amazon: [Added] Creation of Magento orders for Amazon FBA orders in a separate Store View [#2343]
+Amazon: [Fixed] An empty page is displayed after submitting the "Sell on Another Marketplace" action in the Listing [#2631]
+Amazon: [Fixed] Incorrect order logs displayed in case of shipping and tracking issues on Amazon [#3135]
+Walmart: [Improved] The deprecated "Consumer ID" field is renamed to "Client ID" on the Accounts page for Walmart US [#1231
+
+* 1.18.1 (9/12/2021)
+
+Common: [Fixed] Unable to create Magento order. Warning: in_array() expects parameter 2 to be array, bool given [#3123]
+
+* 1.18.0 (8/12/2021)
+
+Common: [Fixed] Auto Add/Remove Rules for Categories level gets deleted after being edited [#3071]
+Common: [Fixed] Unable to create Magento order. Reason: Full name must consist of at least firstname and lastname [#3113]
+Common: [Improved] Prevent item duplicates in the Listings when using Auto Add/Remove Rules [#7]
+eBay: [Fixed] Incorrect data when changing the Type of Domestic/International Shipping in the Shipping Policy [#3095]
+eBay: [Fixed] Flat Shipping Package type is submitted incorrectly to eBay [#3047]
+eBay: [Improved] Process of importing Unmanaged Items to M2E Pro [#2967]
+eBay: [Improved] Hint for Import Unmanaged Listings option in Account Settings [#3110]
+eBay: [Improved] Some UI texts changes [#1004]
+Amazon: [Added] Log if Child Product was not created due to Parent and Child Magento Attribute values mismatch [#3035]
+Amazon: [Fixed] The 'VAT Rate' field is displayed incorrectly during a new Selling Policy creation [#2624]
+Amazon: [Improved] Some UI texts changes [#1004]
+Walmart: [Added] Log if item status was successfully changed from 'Inactive (Blocked)' on Сhannel [#1188]
+
+* 1.17.1 (3/12/2021)
+
+eBay: [Fixed] Unable to create Magento order. Reason: Undefined property: Ess\M2ePro\Model\eBay\Order\ProxyObject::$options [#3106]
+Amazon: [Fixed] Unable to create Magento order. Reason: Undefined property: Ess\M2ePro\Model\Amazon\Order\ProxyObject::$options [#3106]
+Walmart: [Fixed] Unable to create Magento order. Reason: Undefined property: Ess\M2ePro\Model\Walmart\Order\ProxyObject::$options [#3106]
+
+* 1.17.0 (1/12/2021)
+
+Common: [Added] Compatibility with prefixes and suffixes of customer names in Magento [#2443]
+Common: [Improved] Error log appears if the Product was not listed due to the contradicting Quantity settings in Selling Policy [#1091]
+eBay: [Fixed] Additional Specifics are not deleted after clicking the Remove button on the Edit Category tab [#2629]
+eBay: [Fixed] Message is not displayed once the Category has been saved [#1247]
+eBay: [Fixed] Product is relisted too fast prior to the order's import to M2E Pro [#2419]
+eBay: [Improved] VAT Rate settings in Selling Policy [#1205]
+Amazon: [Fixed] Changes are not saved in the "Condition Note Value" field when editing Selling Settings [#1243]
+Amazon: [Fixed] Internal Server Error when trying to save Selling Settings [#3038]
+Amazon: [Fixed] Repricing Tool tab is displayed in Account settings for the unsupported Marketplaces [#1152]
+Walmart: [Fixed] Endless revise of Product Details [#3013]
+Walmart: [Improved] Additional Attributes hints in Description Policy [#2472]
+Walmart: [Improved] Text of the successful Revise Promotion log [#3045]
+Walmart: [Improved] Revise/Relist actions are not skipped despite invalid Promotions in Selling Policy [#2957]
+
+* 1.16.1 (24/11/2021)
+
+eBay: [Fixed] Error "Unknown column 'cpev_default.entity_id'" during M2E Pro upgrade on Magento Cloud [#3089]
+
+* 1.16.0 (23/11/2021)
+
+eBay: [Improved] Use ReviseInventoryStatus call to update products' QTY and Price [#2875]
+
+* 1.15.1 (18/11/2021)
+
+Common: [Fixed] Log "Magento Product does not exist" keeps appearing for old Channel orders [#2591]
+eBay: [Fixed] Warning "A shipping rate table ID is already applied to the listing" when trying to revise Products that have Shipping Rate Tables disabled [#2987]
+eBay: [Fixed] Internal Server Error(s) [Please specify item_id for revise] due to eBay item ID equal to 0 in the Listing grid [#3017]
+Amazon: [Improved] Throttling limits of the command _GET_AMAZON_FULFILLED_SHIPMENTS_DATA_ [#3055]
+
+* 1.15.0 (02/11/2021)
+
+eBay: [Improved] Optimization of the eBay Parts Compatibility data storage and processing [#1203]
+eBay: [Fixed] Internal Server Error(s) [The access Token cannot be retrieved. Please repeat the action again.] when trying to save the eBay account configurations [#1208]
+eBay: [Fixed] Canceled orders appear along with Pending, Shipped, etc. orders when filtering them by a particular status in the grid [#2577]
+Amazon: [Improved] Support for Magento Attributes of the Boolean type [#3010]
+Amazon: [Fixed] Modification Value is not saved in the corresponding field when editing Selling Settings [#2963]
+Walmart: [Fixed] Modification Value is not saved in the corresponding field when editing Selling Settings [#2963]
+
+* 1.14.3.1 (25/10/2021)
+
+eBay: [Improved] Optimization of the eBay Parts Compatibility data storage and processing [#1203]
+Amazon: [Improved] Support for Magento Attributes of the Boolean type [#3010]
+
+* 1.14.3 (13/10/2021)
+
+Common: [Improved] Handling of exceptions that may occur on grid callbacks [#2276]
+eBay: [Fixed] Best Offer value is not updated during Automatic Revise after changing Price in Magento [#2523]
+eBay: [Fixed] Unable to serialize value. Error: Malformed UTF-8 characters, possibly incorrectly encoded after upgrade to 1.14.2 [#2988]
+eBay: [Fixed] Product status is displayed as Inactive (Stopped) for Active eBay Items [#2926]
+eBay: [Fixed] Exception "Instance must be loaded first" occurs when importing Combined orders in Canceled status [#2574]
+Amazon: [Fixed] Item price is not updated during Manual Revise [#2518]
+Walmart: [Fixed] Undefined index: in Model/Listing/SynchronizeInventory/Walmart/ListingProductsHandler.php on line 56 when importing Unmanaged Listings from the Channel [#1236]
+
+* 1.14.2 (30/09/2021)
+
+Common: [Fixed] Error "[Request ip has wrong value.]" occurs on the Module Registration step of the initial set-up Wizard [#2586]
+Common: [Fixed] "Error: Class 'Laminas\Serializer\Serializer' not found" occurs on Magento 2.4.3 [#2632]
+Common: [Fixed] "Error: Class 'Zend\Serializer\Serializer' not found" occurs on Magento 2.4.3 [#2592]
+eBay: [Fixed] Magento Order was not created. Reason: Warning: A non-numeric value encountered [#2594]
+eBay: [Fixed] eBay order was not refunded as per Magento credit memo creation [#1220]
+Amazon: [Fixed] Different Grand Totals in Amazon and Magento orders for Grouped Products listed as Set [#1218]
+Amazon: [Fixed] Internal Server Error(s) [Marketplace ID is not valid. It differs from the current.] occurs when trying to update the MWS token [#1215]
+Amazon: [Improved] Self-upload of Amazon invoices without receiving and checking the results of the GetFeedSubmissionResult command [#2939]
 
 * 1.14.1 (r4923) (14/07/2021)
 
-[Common] [Improved] Display shipping service in the beginning of the line in Magento Orders [M2-1338]
-[Common] [Fixed] Get wrong table m2epro_config in migration [M2-1352]
-[Common] [Fixed] Column not found: 1054 Unknown column 'cpev.entity_id' [M2-1350]
-[Ebay] [Fixed] Different time for ship by date in orders grid [M2-1356]
-[Ebay] [Fixed] Magento Order was not created. Reason: Notice: Undefined index: delivery_date [M2-1348]
-[Amazon] [Improved] Import IOSS for Amazon Orders [M2-1341]
+Common: [Improved] Display shipping service in the beginning of the line in Magento Orders [M2-1338]
+Common: [Fixed] Get wrong table m2epro_config in migration [M2-1352]
+Common: [Fixed] Column not found: 1054 Unknown column 'cpev.entity_id' [M2-1350]
+Ebay: [Fixed] Different time for ship by date in orders grid [M2-1356]
+Ebay: [Fixed] Magento Order was not created. Reason: Notice: Undefined index: delivery_date [M2-1348]
+Amazon: [Improved] Import IOSS for Amazon Orders [M2-1341]
 
 * 1.14.0 (r4898) (01/07/2021)
 
-[Common] [Added] Add Ship By Date filter to Orders grid [M2-1281]
-[Common] [Added] Display Ship By Date in Channel Orders [M2-1134]
-[Common] [Added] Pass Ship By Date value to Magento Orders [M2-1282]
-[Common] [Fixed] Exception after clicking the Ship button on the Magento Order View page if the order is created not via M2E Pro [M2-1302]
-[Common] [Fixed] 'Skip this message' redirects to the dashboard and the message is not skipped [M2-1205]
-[Common] [Fixed] Uncaught Error: Call to a member function getId() on null in app/code/Ess/M2ePro/Model/Order.php:677 when trying to create a Magento Order for a Disabled variation of a Configurable Product [M2-1229]
-[Common] [Improved] Channel Orders grid and viewing Orders [M2-1113]
-[Common] [Improved] Detect End Date expiration for Special Price and submit Product Price value during the Revise action [M2-1249]
-[Common] [Improved] "Map" renamed to "Link" across the Unmanaged Listings functionality [M2-1108]
-[eBay] [Fixed] Default set of Item Specifics is displayed as Custom after moving Products from Unmanaged Listings to M2E Pro Listings [M2-1284]
-[eBay] [Fixed] "MPN is not allowed as variation specific" error when trying to list Variational Products [M2-1135]
-[eBay] [Improved] Display IOSS/OSS number in Channel and Magento Orders [M2-1291]
-[eBay] [Improved] Filter Products in Listings by Policy title [M2-1160]
-[eBay] [Improved] Resend newly required specifics during the Relist or Revise actions after the error is received [M2-1264]
-[eBay] [Improved] Sort products via the "Available QTY" filter in the Listing grid [M2-1083]
-[eBay] [Improved] Variational Product data is updated automatically if the data is changed on eBay [M2-1095]
-[Amazon] [Improved] Filter Products in Listings by Policy title [M2-1160]
-[Walmart] [Fixed] "The Item was not listed due to the unexpected error on Walmart side" received instead of the actual error [M2-1192]
+Common: [Added] Add Ship By Date filter to Orders grid [M2-1281]
+Common: [Added] Display Ship By Date in Channel Orders [M2-1134]
+Common: [Added] Pass Ship By Date value to Magento Orders [M2-1282]
+Common: [Fixed] Exception after clicking the Ship button on the Magento Order View page if the order is created not via M2E Pro [M2-1302]
+Common: [Fixed] 'Skip this message' redirects to the dashboard and the message is not skipped [M2-1205]
+Common: [Fixed] Uncaught Error: Call to a member function getId() on null in app/code/Ess/M2ePro/Model/Order.php:677 when trying to create a Magento Order for a Disabled variation of a Configurable Product [M2-1229]
+Common: [Improved] Channel Orders grid and viewing Orders [M2-1113]
+Common: [Improved] Detect End Date expiration for Special Price and submit Product Price value during the Revise action [M2-1249]
+Common: [Improved] "Map" renamed to "Link" across the Unmanaged Listings functionality [M2-1108]
+eBay: [Fixed] Default set of Item Specifics is displayed as Custom after moving Products from Unmanaged Listings to M2E Pro Listings [M2-1284]
+eBay: [Fixed] "MPN is not allowed as variation specific" error when trying to list Variational Products [M2-1135]
+eBay: [Improved] Display IOSS/OSS number in Channel and Magento Orders [M2-1291]
+eBay: [Improved] Filter Products in Listings by Policy title [M2-1160]
+eBay: [Improved] Resend newly required specifics during the Relist or Revise actions after the error is received [M2-1264]
+eBay: [Improved] Sort products via the "Available QTY" filter in the Listing grid [M2-1083]
+eBay: [Improved] Variational Product data is updated automatically if the data is changed on eBay [M2-1095]
+Amazon: [Improved] Filter Products in Listings by Policy title [M2-1160]
+Walmart: [Fixed] "The Item was not listed due to the unexpected error on Walmart side" received instead of the actual error [M2-1192]
 
 * 1.13.2 (r4838) (08/06/2021)
 

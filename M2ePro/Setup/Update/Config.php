@@ -182,6 +182,19 @@ class Config extends AbstractConfig
             ],
             'y21_m07' => [
                 'AmazonIossNumber'
+            ],
+            'y21_m08' => [
+                'FixedStuckedManualPriceRevise'
+            ],
+            'y21_m10' => [
+                'UpdateWatermarkImage',
+                'PartsCompatibilityImprovement'
+            ],
+            'y21_m11' => [
+                'EbayAddVatMode',
+            ],
+            'y21_m12' => [
+                'AmazonOrdersFbaStore',
             ]
         ];
     }

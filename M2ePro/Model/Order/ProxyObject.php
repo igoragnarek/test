@@ -44,12 +44,16 @@ abstract class ProxyObject extends \Ess\M2ePro\Model\AbstractModel
     /** @var array */
     protected $addressData = [];
 
+    /** @var \Magento\Customer\Model\Options */
+    protected $options;
+
     //########################################
 
     public function __construct(
         \Ess\M2ePro\Model\Currency $currency,
         \Ess\M2ePro\Model\Magento\Payment $payment,
         \Ess\M2ePro\Model\ActiveRecord\Component\Child\AbstractModel $order,
+        \Magento\Customer\Model\Options $options,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
         \Ess\M2ePro\Helper\Factory $helperFactory,
@@ -58,6 +62,7 @@ abstract class ProxyObject extends \Ess\M2ePro\Model\AbstractModel
         $this->currency = $currency;
         $this->payment = $payment;
         $this->order = $order;
+        $this->options = $options;
 
         $this->customerFactory = $customerFactory;
         $this->customerRepository = $customerRepository;
@@ -304,14 +309,18 @@ abstract class ProxyObject extends \Ess\M2ePro\Model\AbstractModel
             $rawAddressData = $this->order->getShippingAddress()->getRawData();
 
             $recipientNameParts = $this->getNameParts($rawAddressData['recipient_name']);
-            $this->addressData['firstname']  = $recipientNameParts['firstname'];
-            $this->addressData['lastname']   = $recipientNameParts['lastname'];
+            $this->addressData['prefix'] = $recipientNameParts['prefix'];
+            $this->addressData['firstname'] = $recipientNameParts['firstname'];
             $this->addressData['middlename'] = $recipientNameParts['middlename'];
+            $this->addressData['lastname'] = $recipientNameParts['lastname'];
+            $this->addressData['suffix'] = $recipientNameParts['suffix'];
 
             $customerNameParts = $this->getNameParts($rawAddressData['buyer_name']);
-            $this->addressData['customer_firstname']  = $customerNameParts['firstname'];
-            $this->addressData['customer_lastname']   = $customerNameParts['lastname'];
+            $this->addressData['customer_prefix'] = $customerNameParts['prefix'];
+            $this->addressData['customer_firstname'] = $customerNameParts['firstname'];
             $this->addressData['customer_middlename'] = $customerNameParts['middlename'];
+            $this->addressData['customer_lastname'] = $customerNameParts['lastname'];
+            $this->addressData['customer_suffix'] = $customerNameParts['suffix'];
 
             $this->addressData['email'] = $rawAddressData['email'];
             $this->addressData['country_id'] = $rawAddressData['country_id'];
@@ -346,32 +355,48 @@ abstract class ProxyObject extends \Ess\M2ePro\Model\AbstractModel
 
     //########################################
 
+    /**
+     * @param $fullName
+     * @return array
+     * @throws \Ess\M2ePro\Model\Exception
+     */
     protected function getNameParts($fullName)
     {
         $fullName = trim($fullName);
+        $parts = explode(' ', $fullName);
 
-        $parts      = explode(' ', $fullName);
-        $partsCount = count($parts);
+        $currentInfo = [
+            'prefix'     => null,
+            'middlename' => null,
+            'suffix'     => null
+        ];
 
-        $firstName  = '';
-        $middleName = '';
-        $lastName   = '';
-
-        if ($partsCount > 1) {
-            $firstName = array_shift($parts);
-            $lastName  = array_pop($parts);
-            if (!empty($parts)) {
-                $middleName = implode(' ', $parts);
+        if (count($parts) > 2) {
+            $prefixOptions = $this->options->getNamePrefixOptions($this->getStore());
+            if (is_array($prefixOptions) && in_array($parts[0], $prefixOptions)) {
+                $currentInfo['prefix'] = array_shift($parts);
             }
-        } else {
-            $firstName = $fullName;
         }
 
-        return [
-            'firstname'  => $firstName ? $firstName : 'N/A',
-            'middlename' => $middleName ? trim($middleName) : '',
-            'lastname'   => $lastName ? $lastName : 'N/A'
-        ];
+        $partsCount = count($parts);
+        if ($partsCount > 2) {
+            $suffixOptions = $this->options->getNameSuffixOptions($this->getStore());
+            if (is_array($suffixOptions) && in_array($parts[$partsCount - 1], $suffixOptions)) {
+                $currentInfo['suffix'] = array_pop($parts);
+            }
+        }
+
+        $partsCount = count($parts);
+        if ($partsCount > 2) {
+            $middleName = array_slice($parts, 1, $partsCount - 2);
+            $currentInfo['middlename'] = implode(' ', $middleName);
+            $parts = [$parts[0], $parts[$partsCount - 1]];
+        }
+
+        $currentInfo['firstname'] = isset($parts[0]) ? $parts[0] : 'N/A';
+        $currentInfo['lastname'] = isset($parts[1]) ? $parts[1] : 'N/A';
+
+        return $currentInfo;
     }
 
     //########################################

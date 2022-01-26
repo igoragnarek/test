@@ -1,5 +1,5 @@
 <?php
-
+// @codingStandardsIgnoreFile
 /*
  * @author     M2E Pro Developers Team
  * @copyright  M2E LTD
@@ -3976,6 +3976,12 @@ class InstallSchema implements InstallSchemaInterface
                 ['default' => null]
             )
             ->addColumn(
+                'online_parts_data',
+                Table::TYPE_TEXT,
+                32,
+                ['default' => null]
+            )
+            ->addColumn(
                 'online_shipping_data',
                 Table::TYPE_TEXT,
                 40,
@@ -5762,6 +5768,12 @@ class InstallSchema implements InstallSchemaInterface
                 ['nullable' => false]
             )
             ->addColumn(
+                'vat_mode',
+                Table::TYPE_SMALLINT,
+                null,
+                ['unsigned' => true, 'nullable' => false, 'default' => 0]
+            )
+            ->addColumn(
                 'vat_percent',
                 Table::TYPE_FLOAT,
                 null,
@@ -6451,6 +6463,12 @@ class InstallSchema implements InstallSchemaInterface
             )
             ->addColumn(
                 'revise_update_categories',
+                Table::TYPE_SMALLINT,
+                null,
+                ['unsigned' => true, 'nullable' => false]
+            )
+            ->addColumn(
+                'revise_update_parts',
                 Table::TYPE_SMALLINT,
                 null,
                 ['unsigned' => true, 'nullable' => false]

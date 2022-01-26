@@ -745,6 +745,10 @@ class Order extends \Ess\M2ePro\Model\ActiveRecord\Component\Child\Ebay\Abstract
      */
     public function canCreateMagentoOrder()
     {
+        if ($this->isCanceled()) {
+            return false;
+        }
+
         $ebayAccount = $this->getEbayAccount();
 
         if (!$this->isCheckoutCompleted() &&
@@ -766,7 +770,7 @@ class Order extends \Ess\M2ePro\Model\ActiveRecord\Component\Child\Ebay\Abstract
      */
     public function isReservable()
     {
-        return true;
+        return !$this->isCanceled();
     }
 
     //########################################
@@ -783,7 +787,7 @@ class Order extends \Ess\M2ePro\Model\ActiveRecord\Component\Child\Ebay\Abstract
         $shippingDetails = $this->getShippingDetails();
         $shippingDetails['address'] = $buyerInfo['address'];
 
-        $buyerName = trim($buyerInfo['first_name']) . ' ' . trim($buyerInfo['last_name']);
+        $buyerName = trim($buyerInfo['name']);
 
         $this->getParentObject()->setData('buyer_name', $buyerName);
         $this->getParentObject()->setSettings('shipping_details', $shippingDetails);

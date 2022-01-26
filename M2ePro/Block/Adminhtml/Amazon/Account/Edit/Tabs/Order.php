@@ -113,7 +113,7 @@ HTML
             'listed_by_m2e',
             [
                 'legend'      => $this->__('Product Is Listed By M2E Pro'),
-                'collapsable' => false
+                'collapsable' => true
             ]
         );
 
@@ -173,7 +173,7 @@ HTML
             'magento_block_amazon_accounts_magento_orders_listings_other',
             [
                 'legend'      => $this->__('Product Is Listed By Any Other Software'),
-                'collapsable' => false
+                'collapsable' => true
             ]
         );
 
@@ -189,7 +189,7 @@ HTML
                 ],
                 'value'   => $formData['magento_orders_settings']['listing_other']['mode'],
                 'tooltip' => $this->__(
-                    'Choose whether a Magento Order should be created if an Amazon Order is received for an item that 
+                    'Choose whether a Magento Order should be created if an Amazon Order is received for an item that
                     does <b>not</b> belong to the M2E Pro Listing.'
                 )
             ]
@@ -242,7 +242,7 @@ HTML
                     [
                         'type'    => \Magento\Framework\Message\MessageInterface::TYPE_NOTICE,
                         'content' => $this->__(
-                            'Please note that a new Magento Product will be created 
+                            'Please note that a new Magento Product will be created
                             if the corresponding SKU is not found in your Catalog.'
                         )
                     ]
@@ -270,10 +270,89 @@ HTML
         );
 
         $fieldset = $form->addFieldset(
+            'magento_block_amazon_accounts_magento_orders_fba',
+            [
+                'legend'      => $this->__('FBA Orders Settings'),
+                'collapsable' => true,
+                'tooltip'     => $this->__(
+                    'In this Block you can manage Stock Inventory of Products fulfilled by Amazon  (FBA Orders).<br/>
+                <b>Yes</b> - after Magento Order Creation of FBA Order, Quantity of Product reduces in Magento.<br/>
+                <b>No</b> - Magento Order Creation of FBA Order does not affect Quantity of Magento Product.'
+                )
+            ]
+        );
+
+        $fieldset->addField(
+            'magento_orders_fba_mode',
+            'select',
+            [
+                'name'    => 'magento_orders_settings[fba][mode]',
+                'label'   => $this->__('Create Order in Magento'),
+                'values'  => [
+                    0 => $this->__('No'),
+                    1 => $this->__('Yes'),
+                ],
+                'value'   => $formData['magento_orders_settings']['fba']['mode'],
+                'tooltip' => $this->__(
+                    'Whether an Order has to be created in Magento if a sold Product is fulfilled by Amazon.'
+                )
+            ]
+        );
+
+        $fieldset->addField(
+            'magento_orders_fba_store_mode',
+            'select',
+            [
+                'container_id' => 'magento_orders_fba_store_mode_container',
+                'name'         => 'magento_orders_settings[fba][store_mode]',
+                'label'        => $this->__('Create in separate Store View'),
+                'values'       => [
+                    0 => $this->__('No'),
+                    1 => $this->__('Yes'),
+                ],
+                'value'        => $formData['magento_orders_settings']['fba']['store_mode']
+            ]
+        );
+
+        $fieldset->addField(
+            'magento_orders_fba_store_id',
+            self::STORE_SWITCHER,
+            [
+                'container_id'       => 'magento_orders_fba_store_id_container',
+                'name'               => 'magento_orders_settings[fba][store_id]',
+                'label'              => $this->__('Magento Store View'),
+                'value'              => !empty($ordersSettings['fba']['store_id'])
+                    ? $ordersSettings['fba']['store_id'] : '',
+                'required'           => true,
+                'has_empty_option'   => true,
+                'has_default_option' => false
+            ]
+        );
+
+        $fieldset->addField(
+            'magento_orders_fba_stock_mode',
+            'select',
+            [
+                'container_id' => 'magento_orders_fba_stock_mode_container',
+                'name'         => 'magento_orders_settings[fba][stock_mode]',
+                'label'        => $this->__('Manage Stock'),
+                'values'       => [
+                    0 => $this->__('No'),
+                    1 => $this->__('Yes'),
+                ],
+                'value'        => $formData['magento_orders_settings']['fba']['stock_mode'],
+                'tooltip'      => $this->__(
+                    'If <i>Yes</i>, after Magento Order Creation QTY of Magento Product reduces.'
+                )
+            ]
+        );
+
+        $fieldset = $form->addFieldset(
             'magento_block_amazon_accounts_magento_orders_number',
             [
                 'legend'      => $this->__('Magento Order Number'),
-                'collapsable' => true
+                'collapsable' => true,
+                'tooltip'     => $this->__('Sets Magento Order number basing on the Settings below')
             ]
         );
 
@@ -393,57 +472,6 @@ HTML
                     1 => $this->__('Yes'),
                 ],
                 'value'        => $formData['magento_orders_settings']['refund_and_cancellation']['refund_mode']
-            ]
-        );
-
-        $fieldset = $form->addFieldset(
-            'magento_block_amazon_accounts_magento_orders_fba',
-            [
-                'legend'      => $this->__('FBA Orders Settings'),
-                'collapsable' => true,
-                'tootlip'     => $this->__(
-                    'In this Block you can manage Stock Inventory of Products fulfilled by Amazon  (FBA Orders).<br/>
-                <ul class=list>
-
-                <li><b>Yes</b> - after Magento Order Creation of FBA Order, Quantity of Product reduces in Magento.</li>
-                <li><b>No</b> - Magento Order Creation of FBA Order does not affect Quantity of Magento Product.</li>
-                </ul>'
-                )
-            ]
-        );
-
-        $fieldset->addField(
-            'magento_orders_fba_mode',
-            'select',
-            [
-                'name'    => 'magento_orders_settings[fba][mode]',
-                'label'   => $this->__('Create Order in Magento'),
-                'values'  => [
-                    0 => $this->__('No'),
-                    1 => $this->__('Yes'),
-                ],
-                'value'   => $formData['magento_orders_settings']['fba']['mode'],
-                'tooltip' => $this->__(
-                    'Whether an Order has to be created in Magento if a sold Product is fulfilled by Amazon.'
-                )
-            ]
-        );
-
-        $fieldset->addField(
-            'magento_orders_fba_stock_mode',
-            'select',
-            [
-                'container_id' => 'magento_orders_fba_stock_mode_container',
-                'name'         => 'magento_orders_settings[fba][stock_mode]',
-                'label'        => $this->__('Manage Stock'),
-                'values'       => [
-                    0 => $this->__('No'),
-                    1 => $this->__('Yes'),
-                ],
-                'value'        => $formData['magento_orders_settings']['fba']['stock_mode'],
-                'tooltip'      => $this->__(
-                    'If <i>Yes</i>, after Magento Order Creation QTY of Magento Product reduces.'
-                )
             ]
         );
 
@@ -582,16 +610,8 @@ HTML
                 'value'   => $formData['magento_orders_settings']['customer']['billing_address_mode'],
                 'note'    => $this->__('When to use shipping address as billing.'),
                 'tooltip' => $this->__(
-                    'The Amazon does not supply the complete billing Buyer information,
-                     only the Buyer\'s name and email address. The only way to fill in billing address in the
-                     Customer\'s invoice is to use information from shipping address.<br/><br/>
-                     You should select the appropriate Option how to handle billing address for imported Customer:<br/>
-                     <br/>
-                     <strong>Always</strong> - the shipping address is always used as billing address. <br/>
-                     <strong>Buyer & Recipient have the same name</strong> - the shipping address is used as billing
-                     address, only when Buyer\'s name and Recipient\'s name are the same. Otherwise,
-                     billing address fields will be empty and next message will appear in the city field:
-                     "Amazon does not supply the complete billing Buyer information". <br/>'
+                    'Choose if you want to use your customer’s shipping address as the billing one regularly
+                    or only if the buyer and recipient have the same names.'
                 )
             ]
         );
@@ -682,7 +702,7 @@ HTML
                         'The option allows skipping tax for orders with UK shipment.</br></br>
 <strong>None</strong> - the tax won\'t be skipped and will be displayed in all orders.</br></br>
 <strong>All orders with UK shipments</strong> - M2E Pro will skip tax for all orders with UK shipments.</br></br>
-<strong>Orders under 135GBP price</strong> - 
+<strong>Orders under 135GBP price</strong> -
 M2E Pro will skip tax only for orders with a total price of all products under 135GBP price.'
                     )
                 )

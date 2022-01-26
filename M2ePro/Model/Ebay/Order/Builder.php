@@ -114,7 +114,7 @@ class Builder extends AbstractModel
         }
 
         $this->setData('buyer_user_id', trim($data['buyer']['user_id']));
-        $this->setData('buyer_name', trim($data['buyer']['first_name']) . ' ' . trim($data['buyer']['last_name']));
+        $this->setData('buyer_name', trim($data['buyer']['name']));
         $this->setData('buyer_email', trim($data['buyer']['email']));
         $this->setData('buyer_message', $data['buyer']['message']);
         $this->setData('buyer_tax_id', trim($data['buyer']['tax_id']));
@@ -431,18 +431,6 @@ class Builder extends AbstractModel
     //########################################
 
     /**
-     * @return mixed
-     */
-    public function isRefund()
-    {
-        $paymentDetails = $this->getData('payment_details');
-
-        return $paymentDetails['is_refund'];
-    }
-
-    // ---------------------------------------
-
-    /**
      * @return bool
      */
     public function isSingle()
@@ -493,16 +481,25 @@ class Builder extends AbstractModel
      */
     protected function canCreateOrUpdateOrder()
     {
-        if ($this->isNew() && $this->isRefund()) {
-            return false;
-        }
+        if ($this->order->getId()) {
+            $newPurchaseUpdateDate = new \DateTime(
+                $this->getData('purchase_update_date'),
+                new \DateTimeZone('UTC')
+            );
+            $oldPurchaseUpdateDate = new \DateTime(
+                $this->order->getChildObject()->getPurchaseUpdateDate(),
+                new \DateTimeZone('UTC')
+            );
 
-        if (empty($this->relatedOrders)) {
-            return true;
+            if ($newPurchaseUpdateDate <= $oldPurchaseUpdateDate) {
+                return false;
+            }
         }
 
         if ($this->getData('order_status') == OrderHelper::EBAY_ORDER_STATUS_CANCELLED &&
-            !$this->order->getChildObject()->isCanceled()) {
+            $this->order->getId() &&
+            !$this->order->getChildObject()->isCanceled()
+        ) {
             return true;
         }
 
@@ -512,6 +509,10 @@ class Builder extends AbstractModel
 
         if ($this->getData('order_status') == OrderHelper::EBAY_ORDER_STATUS_INACTIVE) {
             return false;
+        }
+
+        if (empty($this->relatedOrders)) {
+            return true;
         }
 
         if (count($this->relatedOrders) == 1) {
